@@ -223,14 +223,14 @@ function showTab(group, tabId) {
             </div>
         </section>
 
-        <!-- Case Study -->
+                <!-- Case Study -->
         <section class="mb-16">
-            <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Full Example: Multi-Vehicle Complex Crash</h2>
+            <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-2">Full Example: The Dual-Judge Framework</h2>
             
             <div class="glass-panel p-6 rounded-xl mb-8">
                 <p class="text-gray-700 mb-4 text-lg">
                     This example features an overly speedy cement mixer truck entering an intersection, leading to a severe rollover and crushing a silver van. 
-                    Below are the full raw JSON predictions from the models alongside the Human Ground Truth, followed by the rigorous LLM-as-a-judge evaluation results.
+                    Below, we demonstrate the full evaluation pipeline on a single model's prediction <strong>(InternVL3.5-14B)</strong>, evaluated by two independent LLM Judges.
                 </p>
                 <div class="rounded-xl overflow-hidden shadow-lg bg-black flex justify-center mb-6">
                     <video controls muted autoplay loop class="max-h-[500px] w-full object-contain">
@@ -240,13 +240,13 @@ function showTab(group, tabId) {
                 </div>
             </div>
 
-            <!-- Inferences Tabbed -->
-            <h3 class="text-2xl font-bold mb-4 text-gray-800">1. Full Model Inferences</h3>
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg flex flex-col mb-12">
+            <!-- 1. Prediction Tabbed -->
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">1. Ground Truth vs Prediction</h3>
+            <p class="text-gray-600 mb-4 italic">Comparing the human expert annotation against InternVL3.5-14B's raw prediction.</p>
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg flex flex-col mb-12 border border-gray-700">
                 <div class="flex border-b border-gray-700 bg-gray-900">
                     <button id="inf-tab-gt" onclick="showTab('inf', 'gt')" class="inf-tab flex-1 py-3 px-4 font-bold text-sm bg-gray-700 text-white transition">✅ Ground Truth</button>
-                    <button id="inf-tab-gem" onclick="showTab('inf', 'gem')" class="inf-tab flex-1 py-3 px-4 font-bold text-sm text-gray-400 hover:text-white transition">🤖 Gemini 2.5 Flash</button>
-                    <button id="inf-tab-int" onclick="showTab('inf', 'int')" class="inf-tab flex-1 py-3 px-4 font-bold text-sm text-gray-400 hover:text-white transition">🤖 InternVL3-14B</button>
+                    <button id="inf-tab-int" onclick="showTab('inf', 'int')" class="inf-tab flex-1 py-3 px-4 font-bold text-sm text-gray-400 hover:text-white transition">🤖 InternVL3.5-14B Prediction</button>
                 </div>
                 
                 <div id="inf-content-gt" class="inf-content bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
@@ -405,146 +405,6 @@ function showTab(group, tabId) {
 }</pre>
                 </div>
                 
-                <div id="inf-content-gem" class="inf-content hidden bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
-                    <pre class="m-0 text-gray-300 text-xs leading-relaxed font-mono whitespace-pre-wrap">{
-  "video_metadata": {
-    "video_id": "ZZ_294_ZZ_4fvWtH-C3Cs.mp4",
-    "hazard_present": true,
-    "hazard_type": [
-      "collision"
-    ],
-    "severity_score": 5,
-    "confidence": 1.0,
-    "notes": "A cement mixer truck collides with a mini-van, causing the truck to overturn and the van to be crushed."
-  },
-  "level_1_perception": {
-    "agents": [
-      {
-        "id": "A",
-        "role": "initiator",
-        "type": "heavy_vehicle",
-        "initial_state": {
-          "motion": "moving",
-          "lane": "unknown",
-          "intent": "swerving"
-        },
-        "spatial_location": "front_left",
-        "visibility": "clear",
-        "confidence": 1.0
-      },
-      {
-        "id": "B",
-        "role": "victim",
-        "type": "vehicle",
-        "initial_state": {
-          "motion": "moving",
-          "lane": "unknown",
-          "intent": "keeping_lane"
-        },
-        "spatial_location": "front_center",
-        "visibility": "clear",
-        "confidence": 1.0
-      }
-    ],
-    "environmental_factors": {
-      "road_type": "rural",
-      "traffic": "light",
-      "lighting": "daylight",
-      "road_surface": "dry",
-      "other": []
-    },
-    "confidence": 1.0,
-    "notes": "The video shows a cement mixer truck and a small van on a bridge. The truck appears to be in the process of turning or swerving just before the collision."
-  },
-  "level_2_predictive": {
-    "temporal_window": {
-      "latent_phase_sec": [
-        0.0,
-        1.5
-      ],
-      "active_phase_sec": [
-        1.5,
-        5.0
-      ]
-    },
-    "critical_point_time_sec": 2.5,
-    "predicted_outcome": {
-      "label": "collision",
-      "summary": "The cement mixer truck collides with the min-ivan, overturning the truck and severely damaging the van. The driver in the van sustained injuries.",
-      "confidence": 1.0
-    },
-    "notes": ""
-  },
-  "level_3_explanation_counterfactual": {
-    "causal_chain": [
-      {
-        "step": 1,
-        "event": "A heavy vehicle (cement mixer truck) attempts to make a turn on a bridge.",
-        "actors": [
-          "A"
-        ],
-        "time_sec": 1.0,
-        "confidence": 1.0
-      },
-      {
-        "step": 2,
-        "event": "A van approaches the truck from the opposite direction.",
-        "actors": [
-          "B"
-        ],
-        "time_sec": 1.5,
-        "confidence": 1.0
-      },
-      {
-        "step": 3,
-        "event": "The truck appears to be swerving, losing control, and collides with the van.",
-        "actors": [
-          "A",
-          "B"
-        ],
-        "time_sec": 2.5,
-        "confidence": 1.0
-      },
-      {
-        "step": 4,
-        "event": "The truck overturns and the van is severely crushed.",
-        "actors": [
-          "A",
-          "B"
-        ],
-        "time_sec": 3.0,
-        "confidence": 1.0
-      }
-    ],
-    "preventive_actions": {
-      "primary": "reduce_speed",
-      "alternatives": [
-        "stay_in_lane"
-      ],
-      "infeasible": [],
-      "notes": ""
-    },
-    "counterfactual_analysis": [
-      {
-        "actor": "A",
-        "action": "reduce_speed",
-        "risk_reduced": true,
-        "explanation": "If the truck driver had reduced speed before making the turn on the bridge, they might have maintained better control and avoided the collision, especially given the weight and type of vehicle.",
-        "confidence": 0.95
-      },
-      {
-        "actor": "A",
-        "action": "stay_in_lane",
-        "risk_reduced": true,
-        "explanation": "If the truck driver had stayed in their lane and not swerved, the collision with the oncoming van could have been avoided.",
-        "confidence": 0.9
-      }
-    ],
-    "notes": ""
-  }
-}</pre>
-                </div>
-
                 <div id="inf-content-int" class="inf-content hidden bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
                     <pre class="m-0 text-gray-300 text-xs leading-relaxed font-mono whitespace-pre-wrap">{
   "video_metadata": {
@@ -553,27 +413,27 @@ function showTab(group, tabId) {
     "hazard_type": [
       "collision"
     ],
-    "severity_score": 4,
+    "severity_score": 5,
     "confidence": 0.95,
-    "notes": ""
+    "notes": "Collision involving a truck and a van, resulting in severe damage."
   },
   "level_1_perception": {
     "agents": [
       {
-        "id": "1",
+        "id": "truck",
         "role": "initiator",
         "type": "heavy_vehicle",
         "initial_state": {
           "motion": "moving",
           "lane": "center",
-          "intent": "swerving"
+          "intent": "keeping_lane"
         },
         "spatial_location": "front_center",
         "visibility": "clear",
-        "confidence": 0.95
+        "confidence": 0.9
       },
       {
-        "id": "2",
+        "id": "van",
         "role": "victim",
         "type": "vehicle",
         "initial_state": {
@@ -582,36 +442,36 @@ function showTab(group, tabId) {
           "intent": "braking"
         },
         "spatial_location": "front_center",
-        "visibility": "obstructed",
-        "confidence": 0.95
+        "visibility": "clear",
+        "confidence": 0.85
       }
     ],
     "environmental_factors": {
-      "road_type": "city",
+      "road_type": "urban",
       "traffic": "light",
       "lighting": "daylight",
       "road_surface": "dry",
       "other": []
     },
-    "confidence": 0.94,
+    "confidence": 0.9,
     "notes": ""
   },
   "level_2_predictive": {
     "temporal_window": {
       "latent_phase_sec": [
-        0,
-        5
+        0.0,
+        5.0
       ],
       "active_phase_sec": [
-        5,
-        10
+        5.0,
+        10.0
       ]
     },
-    "critical_point_time_sec": 5.5,
+    "critical_point_time_sec": 7.5,
     "predicted_outcome": {
       "label": "collision",
-      "summary": "Heavy vehicle collides with stopped vehicle.",
-      "confidence": 0.97
+      "summary": "Truck collides with van due to loss of control.",
+      "confidence": 0.95
     },
     "notes": ""
   },
@@ -619,38 +479,46 @@ function showTab(group, tabId) {
     "causal_chain": [
       {
         "step": 1,
-        "event": "Heavy vehicle approaches from behind.",
+        "event": "Truck loses control",
         "actors": [
-          "agent 1"
+          "truck"
         ],
-        "time_sec": null,
+        "time_sec": 7.5,
         "confidence": 0.95
       },
       {
         "step": 2,
-        "event": "Failure to brake in time leads to collision.",
+        "event": "Van unable to move out of path",
         "actors": [
-          "agent 1"
+          "van"
         ],
-        "time_sec": 5.5,
-        "confidence": 0.95
+        "time_sec": 7.5,
+        "confidence": 0.9
       }
     ],
     "preventive_actions": {
-      "primary": "brake_earlier",
+      "primary": "reduce_speed",
       "alternatives": [
-        "increase_gap"
+        "maintain_safe_following_distance",
+        "check_blind_spot"
       ],
       "infeasible": [],
       "notes": ""
     },
     "counterfactual_analysis": [
       {
-        "actor": "heavy_vehicle driver",
-        "action": "brake_earlier",
+        "actor": "truck driver",
+        "action": "reduce_speed",
         "risk_reduced": true,
-        "explanation": "Earlier braking would have avoided or minimized collision.",
-        "confidence": 0.97
+        "explanation": "Slowing down could have prevented collision.",
+        "confidence": 0.95
+      },
+      {
+        "actor": "van driver",
+        "action": "increase_gap",
+        "risk_reduced": true,
+        "explanation": "Increasing distance from the truck might have avoided collision.",
+        "confidence": 0.9
       }
     ],
     "notes": ""
@@ -659,52 +527,55 @@ function showTab(group, tabId) {
                 </div>
             </div>
 
-            <!-- Judge Evals Tabbed -->
-            <h3 class="text-2xl font-bold mb-4 text-gray-800">2. LLM Judge Evaluation Reports</h3>
-            <p class="text-gray-600 mb-4 italic">The judge script strictly evaluates the predicted JSONs against the Ground Truth across Level 1, 2, 4, and 5.</p>
-            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg flex flex-col mb-10">
+            <!-- 2. Dual Judge Tabbed -->
+            <h3 class="text-2xl font-bold mb-4 text-gray-800">2. Dual LLM-as-a-Judge Evaluation</h3>
+            <p class="text-gray-600 mb-4 italic">How GPT-4.1-mini and Gemini-2.5-Flash independently scored the InternVL3.5-14B prediction.</p>
+            <div class="bg-gray-800 rounded-xl overflow-hidden shadow-lg flex flex-col mb-8 border border-gray-700">
                 <div class="flex border-b border-gray-700 bg-gray-900">
-                    <button id="eval-tab-gem" onclick="showTab('eval', 'gem')" class="eval-tab flex-1 py-3 px-4 font-bold text-sm bg-gray-700 text-white transition">⚖️ Gemini Evaluation</button>
-                    <button id="eval-tab-int" onclick="showTab('eval', 'int')" class="eval-tab flex-1 py-3 px-4 font-bold text-sm text-gray-400 hover:text-white transition">⚖️ InternVL Evaluation</button>
+                    <button id="eval-tab-gpt" onclick="showTab('eval', 'gpt')" class="eval-tab flex-1 py-3 px-4 font-bold text-sm bg-gray-700 text-white transition">⚖️ Evaluated by GPT-4.1-mini</button>
+                    <button id="eval-tab-gem" onclick="showTab('eval', 'gem')" class="eval-tab flex-1 py-3 px-4 font-bold text-sm text-gray-400 hover:text-white transition">⚖️ Evaluated by Gemini 2.5 Flash</button>
                 </div>
                 
-                <div id="eval-content-gem" class="eval-content bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
+                <div id="eval-content-gpt" class="eval-content bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
                     <pre class="m-0 text-gray-300 text-xs leading-relaxed font-mono whitespace-pre-wrap">{
   "scores": {
-    "level_1_perception": 8,
-    "level_2_temporal": 7,
-    "level_3_causal_chain": 7,
-    "level_4_preventive": 8,
-    "level_5_counterfactual": 8
+    "level_1_perception": 7,
+    "level_2_temporal": 4,
+    "level_3_causal_chain": 4,
+    "level_4_preventive": 6,
+    "level_5_counterfactual": 6
   },
   "metrics": {
-    "temporal_error_sec": 0.5,
+    "temporal_error_sec": 4.5,
     "vehicle_count_match": true,
     "role_match": true,
-    "collision_type_match": true,
+    "collision_type_match": false,
     "physical_logic_valid": true,
-    "causal_steps_covered": 0.8,
+    "causal_steps_covered": 0.4,
     "counterfactual_actor_match": true
   },
   "leniency_applied": [
-    "Vehicle type near-miss: 'mini-van' vs 'van' is acceptable.",
-    "Road type: 'rural' vs 'city_road' is a minor environmental detail and acceptable.",
-    "Agent IDs vs descriptive: 'A' and 'B' are matched by role to 'mixer_truck' and 'silver_van'."
+    "Color/appearance ambiguity ignored (e.g., 'silver van' vs 'van')",
+    "Synonym descriptions accepted (e.g., 'collision' vs 'crash')",
+    "Generic agent IDs matched by role (e.g., 'mixer_truck' vs 'truck')",
+    "Minor environmental detail differences (e.g., 'city_road' vs 'urban')",
+    "Empty or missing notes fields not penalized"
   ],
   "critical_errors": [
-    "Causal chain step 1: Predicted 'attempts to make a turn' is less accurate than 'travels steadily forward across the bridge intersection' for the van.",
-    "Causal chain step 2: Predicted 'van approaches the truck from the opposite direction' is less accurate than 'Mixer truck enters the intersection from the right at an excessive rate of speed.' The GT focuses on the truck's entry and speed as the critical precursor.",
-    "Causal chain: The predicted chain misses the explicit 'excessive speed' of the truck as a distinct causal factor in the initial approach, which is a key element in the GT."
+    "Critical point timing off by more than 2 seconds (3.0s vs 7.5s)",
+    "Collision type mismatch: GT describes rollover tipping and crushing, prediction only states collision due to loss of control",
+    "Causal chain incomplete and missing key steps such as swerve and rollover",
+    "Van motion state incorrect (moving vs stopped/braking) affecting role dynamics"
   ],
-  "justification": "The model correctly identified the agents, their roles, and the overall collision type. Temporal reasoning was good, with the critical point time being very close. The causal chain captured the main events but missed some nuance regarding the truck's initial excessive speed and the van's steady movement. Preventive actions and counterfactuals were largely accurate and relevant.",
+  "justification": "The model correctly identified the two vehicles involved and their roles as initiator and victim, and recognized a collision hazard. However, it missed the critical timing by a large margin and failed to capture the key causal events like the sharp swerve and rollover of the mixer truck. The preventive actions and counterfactuals were plausible but lacked the specificity and context of the ground truth. Overall, the prediction shows a basic understanding but lacks depth and temporal accuracy.",
   "video_id": "ZZ_294_ZZ_4fvWtH-C3Cs",
-  "model": "gemini-2.5-flash",
-  "judge": "google/gemini-2.5-flash",
+  "model": "InternVL3_5-14B",
+  "judge": "openai/gpt-4.1-mini",
   "eval_status": "ok"
 }</pre>
                 </div>
 
-                <div id="eval-content-int" class="eval-content hidden bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
+                <div id="eval-content-gem" class="eval-content hidden bg-[#1e1e1e] p-4 overflow-auto max-h-[600px]">
                     <pre class="m-0 text-gray-300 text-xs leading-relaxed font-mono whitespace-pre-wrap">{
   "scores": {
     "level_1_perception": 5,
@@ -744,6 +615,18 @@ function showTab(group, tabId) {
                 </div>
             </div>
             
+            <!-- 3. Conclusions -->
+            <div class="glass-panel p-6 rounded-xl border-l-4 border-indigo-500 bg-indigo-50/50">
+                <h4 class="text-xl font-bold text-indigo-900 mb-2">Conclusions & Insights</h4>
+                <p class="text-gray-800 leading-relaxed mb-3">
+                    The dual-judge evaluation exposes crucial blind spots in current state-of-the-art vision models and emphasizes the necessity of using multiple independent judges:
+                </p>
+                <ul class="list-disc pl-5 text-gray-700 space-y-2">
+                    <li><strong>Temporal Failure:</strong> InternVL completely missed the critical timing sequence (predicting 7.5s instead of 3.0s) and falsely categorized the collision as a generic crash rather than a <em>rollover</em>.</li>
+                    <li><strong>Inter-Judge Disagreement:</strong> While <strong>GPT-4.1-mini</strong> gave a somewhat lenient Level 1 score (7) and marked <code>physical_logic_valid: true</code>, <strong>Gemini 2.5 Flash</strong> was much stricter, assigning a Level 1 score of 5 and flagging the physical logic as <code>false</code> due to the fundamental misunderstanding of the rollover dynamics.</li>
+                    <li><strong>The Value of CausalCrash:</strong> This discrepancy highlights why dual-judge protocols are essential to prevent automated leniency bias when evaluating complex counterfactual reasoning.</li>
+                </ul>
+            </div>
         </section>
 
         <!-- Evaluation Pipeline -->
