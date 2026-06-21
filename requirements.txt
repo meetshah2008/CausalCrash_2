@@ -1,0 +1,6 @@
+torch==2.11.0
+torchvision==0.26.0
+vllm==0.20.0
+scikit-learn==1.8.0
+blobfile==3.2.0
+openrouter==0.9.1

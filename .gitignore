@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Env
+.env
+.env.*
+
+# Data and outputs
+__data/
+outputs/
+results/
+logs/
+*.log
+*.csv
+*.json
+
+# OS
+.DS_Store
+Thumbs.db
